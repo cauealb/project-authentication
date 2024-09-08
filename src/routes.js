@@ -1,15 +1,17 @@
-import express from "express";
-import '../models/modeluser';
-import UserModel from "../models/modeluser";
-import './connect'
+import UserModel from '../models/modeluser.js'
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 
-//Routes
-app.post('/register', async (req, res) => {
-    try {
-        const user = await UserModel.create(req.body)
-        res.status(201).json(user)
-    } catch (error) {
-        res.status(400).send(error.message)
-    }
+app.get('/inicio', async (req, res) => {
+    res.status(200).send('<h1>Olá Node</h1>')
+});
+
+const port = process.env.PORT
+
+app.listen(port, () => {
+    console.log('Porta acessada com sucesso!')
 })
+
+
