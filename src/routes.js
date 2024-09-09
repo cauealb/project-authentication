@@ -22,7 +22,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const {username, password} = req.body
+    const {_id, username, password} = req.body
 
     const findUser = await UserModel.findOne({username: username})
     if(!findUser){
@@ -30,7 +30,7 @@ app.post('/login', async (req, res) => {
         .send("Error")
     }
 
-    const findPassword = await UserModel.find({password: password})
+    const findPassword = await UserModel.findById({password: password})
     if(!findPassword){
         return res.status(404)
         .send("Error")
@@ -40,10 +40,23 @@ app.post('/login', async (req, res) => {
     const userPL = {
         username: username,
         password: password
-    }
+    };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
     res.status(200).json({msg: "Logado com Sucesso", acessToken}) 
 });
+
+
+app.put('/users/:id', async (req, res) => {
+try {
+    const id = req.body.id
+    const user = await UserModel.findOneAndUpdate(id, req.body, {new: true})
+    res.status(200).json(user)
+    } catch (error) {
+    res.status(400).send(error.message)
+    }
+});
+
+    
 
 
 const port = process.env.PORT
