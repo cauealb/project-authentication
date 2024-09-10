@@ -1,5 +1,5 @@
 import UserModel from '../models/modeluser.js'
-import express from 'express';
+import express, { response } from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
@@ -8,14 +8,14 @@ const app = express();
 
 app.use(express.json())
 
-//Middlewares
+//MiddlewaresJWT
 const middlewareJWT  = (req, res, next) => {
     const authToke = req.headers['authorization']
     const token = authToke && authToke.split(" ")[1]
     if(!token){
         return res.status(404).json({
             sucess: false,
-            response: "Unauthorize3"
+            response: "Unauthorize"
         })        
     }
 
@@ -30,21 +30,37 @@ const middlewareJWT  = (req, res, next) => {
     }
 } 
 
+//Middleware Register
+const register = async (req, res, next) => {
+    const {username} = req.body
+
+    const findUser = await UserModel.findOne({username})
+    if(findUser){
+        return res.status(400).json({
+            sucess: false,
+            response: message
+        })
+    }
+    
+    next();
+}
+
+
 app.get('/proc', async (req, res) => {
     const user = await UserModel.find({})
     res.status(200).json(user)
 });
 
-app.post('/register', async (req, res) => {
+app.post('/register', register, async (req, res) => {
     try {
         const {username, password} = req.body
+
         const hashPassword = await bcrypt.hash(password, 10)
 
         const newUser = {
             username: username,
             password: hashPassword
         }
-
         const user = await UserModel.create(newUser)
         res.status(201).json(user)
     } catch (error) {
@@ -77,16 +93,6 @@ app.post('/login', middlewareJWT, async (req, res) => {
         sucess: true,
         token2: acessToken
     }) 
-});
-
-app.put('/users/:id', async (req, res) => {
-try {
-    const id = req.body.id
-    const user = await UserModel.findOneAndUpdate(id, req.body, {new: true})
-    res.status(200).json(user)
-    } catch (error) {
-    res.status(400).send(error.message)
-    }
 });
 
 app.delete('/users/:id', async (req, res) => {
