@@ -8,6 +8,28 @@ const app = express();
 
 app.use(express.json())
 
+//Middlewares
+const middlewareJWT  = (req, res, next) => {
+    const authToke = req.headers['authorization']
+    const token = authToke && authToke.split(" ")[1]
+    if(!token){
+        return res.status(404).json({
+            sucess: false,
+            response: "Unauthorize3"
+        })        
+    }
+
+    try {
+        jwt.verify(token, process.env.SECRET)
+        next()
+    } catch (error) {
+        return res.status(404).json({
+            sucess: false,
+            response: error.message
+        })
+    }
+} 
+
 app.get('/proc', async (req, res) => {
     const user = await UserModel.find({})
     res.status(200).json(user)
@@ -24,13 +46,13 @@ app.post('/register', async (req, res) => {
         }
 
         const user = await UserModel.create(newUser)
-        res.status(201).json(newUser)
+        res.status(201).json(user)
     } catch (error) {
         res.status(400).send(error.message)
     }
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', middlewareJWT, async (req, res) => {
     const {username, password} = req.body
 
     const findUser = await UserModel.findOne({username: username})
@@ -51,7 +73,10 @@ app.post('/login', async (req, res) => {
         password: password
     };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
-    res.status(200).json({msg: "Logado com Sucesso", acessToken}) 
+    res.status(200).json({
+        sucess: true,
+        token2: acessToken
+    }) 
 });
 
 app.put('/users/:id', async (req, res) => {
@@ -73,8 +98,6 @@ app.delete('/users/:id', async (req, res) => {
         res.status(400).send(error.message)
     } 
 });
-
-    
 
 
 const port = process.env.PORT
