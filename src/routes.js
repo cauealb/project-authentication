@@ -22,7 +22,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const {_id, username, password} = req.body
+    const {username, password} = req.body
 
     const findUser = await UserModel.findOne({username: username})
     if(!findUser){
@@ -45,7 +45,6 @@ app.post('/login', async (req, res) => {
     res.status(200).json({msg: "Logado com Sucesso", acessToken}) 
 });
 
-
 app.put('/users/:id', async (req, res) => {
 try {
     const id = req.body.id
@@ -54,6 +53,16 @@ try {
     } catch (error) {
     res.status(400).send(error.message)
     }
+});
+
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const deleteUser = await UserModel.findByIdAndDelete(id)
+        res.status(200).json(deleteUser)
+    } catch (error) {
+        res.status(400).send(error.message)
+    } 
 });
 
     
