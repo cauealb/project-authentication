@@ -2,6 +2,7 @@ import UserModel from '../models/modeluser.js'
 import express from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 dotenv.config();
 const app = express();
 
@@ -14,8 +15,16 @@ app.get('/proc', async (req, res) => {
 
 app.post('/register', async (req, res) => {
     try {
-        const user = await UserModel.create(req.body)
-        res.status(201).json(user)
+        const {username, password} = req.body
+        const hashPassword = await bcrypt.hash(password, 10)
+
+        const newUser = {
+            username: username,
+            password: hashPassword
+        }
+
+        const user = await UserModel.create(newUser)
+        res.status(201).json(newUser)
     } catch (error) {
         res.status(400).send(error.message)
     }
@@ -27,13 +36,13 @@ app.post('/login', async (req, res) => {
     const findUser = await UserModel.findOne({username: username})
     if(!findUser){
         return res.status(404)
-        .send("Error")
+        .send("Error1")
     }
 
-    const findPassword = await UserModel.findById({password: password})
+    const findPassword = await bcrypt.compare(password, findUser.password)
     if(!findPassword){
         return res.status(404)
-        .send("Error")
+        .send("Error2")
     }
 
     //Authentucation - JWT
