@@ -20,7 +20,8 @@ const middlewareJWT  = (req, res, next) => {
     }
 
     try {
-        jwt.verify(token, process.env.SECRET)
+        const decode = jwt.verify(token, process.env.SECRET)
+        req.user = decode
         next()
     } catch (error) {
         return res.status(404).json({
@@ -47,9 +48,44 @@ const register = async (req, res, next) => {
     }
 }
 
+//Middleware Admin
+const isAdmin = async (res, req, next) => {
+    const token = req.headers['authorization'].split(" ")[1]
+    if(!token){
+        return res.status(400).json({
+            sucess: false,
+            response: "error"
+        })
+    }
+    
+    try {
+        const decode = jwt.verify(token, process.env.SECRET)
+        req.user = decode
+        next();
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
 
 app.get('/admin', async (req, res) => {
     try {
+        const {username, password} = req.body
+
+        if(username !== process.env.ADMIN_USER){
+            return res.status(400).json({
+                sucess: false,
+                response: "Admin unauthorize"
+            })
+        }
+        
+        if(password !== process.env.ADMIN_PASSWORD){
+            return res.status(400).json({
+                sucess: false,
+                response: "Admin unauthorize"
+            })
+        }
+
         const user = await UserModel.find({})
         res.status(200).json({user})
     } catch (error) {
