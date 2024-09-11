@@ -32,24 +32,33 @@ const middlewareJWT  = (req, res, next) => {
 
 //Middleware Register
 const register = async (req, res, next) => {
+    try {
     const {username} = req.body
-
     const findUser = await UserModel.findOne({username})
     if(findUser){
         return res.status(400).json({
             sucess: false,
-            response: message
+            response: 'The already registered username'
         })
     }
-    
     next();
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
 }
 
 
-app.get('/proc', async (req, res) => {
-    const user = await UserModel.find({})
-    res.status(200).json(user)
-});
+app.get('/admin', async (req, res) => {
+    try {
+        const user = await UserModel.find({})
+        res.status(200).json({user})
+    } catch (error) {
+        res.status(400).json({
+            sucess: false,
+            response: error.message
+    })
+}
+})
 
 app.post('/register', register, async (req, res) => {
     try {
