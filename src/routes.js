@@ -1,5 +1,5 @@
 import UserModel from '../models/modeluser.js'
-import express, { response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
@@ -9,8 +9,8 @@ const app = express();
 app.use(express.json())
 
 //MiddlewaresJWT
-const middlewareJWT  = (req, res, next) => {
-    const authToke = req.headers['authorization']
+const middlewareJWT  = async (req, res, next) => {
+    const authToke = await req.headers['authorization']
     const token = authToke && authToke.split(" ")[1]
     if(!token){
         return res.status(404).json({
@@ -33,9 +33,9 @@ const middlewareJWT  = (req, res, next) => {
 
 //Middleware Register
 const register = async (req, res, next) => {
-    try {
     const {username} = req.body
-    const findUser = await UserModel.findOne({username})
+    try {
+    const findUser = await UserModel.findOne({username: username    })
     if(findUser){
         return res.status(400).json({
             sucess: false,
@@ -44,7 +44,7 @@ const register = async (req, res, next) => {
     }
     next();
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(410).send(error.message)
     }
 }
 
@@ -56,19 +56,19 @@ const isAdmin = async (res, req, next) => {
             sucess: false,
             response: "error"
         })
-    }
+    } 
     
     try {
         const decode = jwt.verify(token, process.env.SECRET)
         req.user = decode
-        next();
+        next(); 
     } catch (error) {
         return res.status(400).send(error.message)
     }
 }
 
 
-app.get('/admin', async (req, res) => {
+app.get('/admin', isAdmin, async (req, res) => {
     try {
         const {username, password} = req.body
 
@@ -140,7 +140,7 @@ app.post('/login', middlewareJWT, async (req, res) => {
     }) 
 });
 
-app.delete('/users/:id', async (req, res) => {
+app.delete('/users/:id', middlewareJWT, async (req, res) => {
     try {
         const id = req.params.id
         const deleteUser = await UserModel.findByIdAndDelete(id)
