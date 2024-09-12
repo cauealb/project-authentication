@@ -48,27 +48,8 @@ const register = async (req, res, next) => {
     }
 }
 
-//Middleware Admin
-const isAdmin = async (res, req, next) => {
-    const token = req.headers['authorization'].split(" ")[1]
-    if(!token){
-        return res.status(400).json({
-            sucess: false,
-            response: "error"
-        })
-    } 
-    
-    try {
-        const decode = jwt.verify(token, process.env.SECRET)
-        req.user = decode
-        next(); 
-    } catch (error) {
-        return res.status(400).send(error.message)
-    }
-}
 
-
-app.get('/admin', isAdmin, async (req, res) => {
+app.get('/admin', middlewareJWT, async (req, res) => {
     try {
         const {username, password} = req.body
 
