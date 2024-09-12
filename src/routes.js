@@ -8,6 +8,9 @@ const app = express();
 
 app.use(express.json())
 
+app.set("view engine", "ejs")
+app.set("views", "src/views")
+
 //MiddlewaresJWT
 const middlewareJWT  = async (req, res, next) => {
     const authToke = await req.headers['authorization']
@@ -146,6 +149,10 @@ app.delete('/users/:id', middlewareJWT, async (req, res) => {
     } catch (error) {
         res.status(400).send(error.message)
     } 
+});
+
+app.get('/views', (req, res) => {
+    res.render("pagesLogin")
 });
 
 
