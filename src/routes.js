@@ -121,6 +121,23 @@ app.post('/login', middlewareJWT, async (req, res) => {
     }) 
 });
 
+app.put('/users/:id', middlewareJWT, async(req, res) => {
+    try {
+        const id = req.params.id
+        const {username, password} = req.body
+
+        const newHash = await bcrypt.hash(password, 10)
+        const newUpdate = {
+            username: username,
+            password: newHash
+        }
+        const update = await UserModel.findByIdAndUpdate(id, newUpdate, {new: true})
+        res.status(400).json({update})
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+
 app.delete('/users/:id', middlewareJWT, async (req, res) => {
     try {
         const id = req.params.id
