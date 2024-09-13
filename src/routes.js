@@ -156,6 +156,23 @@ app.get('/views', (req, res) => {
 });
 
 
+app.get('/login', (req, res) => {
+    res.render("pagesLogin")
+});
+
+app.get('/register', (req, res) => {
+    res.render("pagesRegister")
+});
+
+app.get('/update', (req, res) => {
+    res.render("pagesUpdate")
+});
+
+app.get('/delete', (req, res) => {
+    res.render("pagesDelete")
+});
+
+
 const port = process.env.PORT
 
 app.listen(port, () => {
