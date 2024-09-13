@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* Centralização usando Flexbox */
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0; /* Cor de fundo opcional */
+            background-color: #f0f0f0; 
         }
 
-        /* Estilo do formulário */
         .form {
             background-color: #fff;
-            display: block;
             padding: 1rem;
             max-width: 366px;
             border-radius: 0.5rem;
@@ -81,11 +79,47 @@
             text-decoration: underline;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center; 
+            gap: 100px; 
+            position: absolute;
+            top: 80px; 
+            width: 100%;
+        }
+
+        button {
+            font-weight: bold;
+            color: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            width: 150px; 
+            height: 50px; 
+            border: none;
+            background-color: #4F46E5;
+        }
+
+        button:hover {
+            background-color: #554fc7; 
+        }
+
     </style>
 </head>
 <body>
+    <div class="button-container">
+        <a href="/update">
+            <button>Atualizar</button>
+        </a>
+        <a href="/register">
+            <button>Registrar</button>
+        </a>
+        <a href="/delete">
+            <button>Deletar</button>
+        </a>
+    </div>
+
     <form class="form">
-        <p class="form-title">Faça login da sua conta</p>
+        <p class="form-title">Entrar na sua conta</p>
         <div class="input-container">
             <input type="username" placeholder="Enter username">
             <span></span>
@@ -97,9 +131,10 @@
             Entrar
         </button>
         <p class="signup-link">
-            Sem conta?
-            <a href="/register">Registrar-se</a>
+            Já tem conta?
+            <a href="/login">Entrar</a>
         </p>
     </form>
+
 </body>
 </html>
