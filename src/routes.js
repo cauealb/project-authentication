@@ -152,7 +152,7 @@ app.delete('/users/:id', middlewareJWT, async (req, res) => {
 });
 
 app.get('/views', (req, res) => {
-    res.render("pagesLogin")
+    res.render("pagesUpdate")
 });
 
 
