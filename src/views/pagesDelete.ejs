@@ -103,6 +103,30 @@
             background-color: #554fc7; 
         }
 
+        .footer-text {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6B7280;
+            color: blue; 
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                color: blue;
+            }
+            50% {
+                color: red;
+            }
+            100% {
+                color: blue;
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -131,6 +155,8 @@
             Deletar
         </button>
     </form>
+
+    <p class="footer-text">OBS: Digitando o username, será apagado o mesmo e a senha automaticamente!</p>
 
 </body>
 </html>
