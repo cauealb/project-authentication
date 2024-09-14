@@ -45,7 +45,7 @@ const register = async (req, res, next) => {
     if(findUser){
         return res.status(400).send(`
             <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-                <h1>Já existe esse Username nosso banco de dados</h1>
+                <h1>Já existe esse Username nosso banco de dados!</h1>
             </div>
         `);
     }
@@ -53,6 +53,33 @@ const register = async (req, res, next) => {
     } catch (error) {
         res.status(410).send(error.message)
     }
+}
+
+//Middleware Login
+const login = async (req, res, next) => {
+    const {username, password} = req.body
+    const findUser = await UserModel.findOne({username})
+    if(!findUser){
+        return res
+        .status(400)
+        .send(`
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+                <h1>Username não foi encontrado!</h1>
+            </div>
+        `)
+    }
+    
+    const findPassword = await bcrypt.compare(password, findUser.password)
+    if(!findPassword){
+        return res
+        .status(400)
+        .send(`
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+                <h1>Senha não confere!</h1>
+            </div>
+        `)
+    }
+    next();
 }
 
 
@@ -109,35 +136,23 @@ app.post('/register', register, async (req, res) => {
     }
 });
 
-app.post('/login', middlewareJWT, async (req, res) => {
-    const data = {
-        username: req.body.username,
-        password: req.body.password
-    }
-
-    const findUser = await UserModel.findOne({username: username})
-    if(!findUser){
-        return res.status(404)
-        .send("Error1")
-    }
-
-    const findPassword = await bcrypt.compare(data.password, findUser.password)
-    if(!findPassword){
-        return res.status(404)
-        .send("Error2")
-    }
-
+app.post('/login', login, async (req, res) => {
     //Authentucation - JWT
     const userPL = {
-        username: username,
-        password: data.password
+        username: req.body.username,
+        password: req.body.password
     };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
     res.set('Authorization', `Bearer${acessToken}`)
-    res.status(200).json({
-        sucess: true,
-        token2: acessToken
-    }) 
+
+    res.status(200).send(`
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+                <h1>Logado com sucesso!</h1>
+                <p style="word-wrap: break-word; max-width: 80%; font-size: 1.2rem; text-align: center;">
+                    Seu token: ${acessToken}
+                </p>
+            </div>
+        `) 
 });
 
 app.put('/users/:id', middlewareJWT, async(req, res) => {
