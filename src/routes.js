@@ -43,10 +43,11 @@ const register = async (req, res, next) => {
     try {
     const findUser = await UserModel.findOne({username: username    })
     if(findUser){
-        return res.status(400).json({
-            sucess: false,
-            response: 'The already registered username'
-        })
+        return res.status(400).send(`
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+                <h1>Já existe esse Username nosso banco de dados</h1>
+            </div>
+        `);
     }
     next();
     } catch (error) {
@@ -97,7 +98,12 @@ app.post('/register', register, async (req, res) => {
             password: hashPassword
         }
         const user = await UserModel.create(newUser)
-        res.status(201).send("<h1>Bem vindo</h1>")
+        res.status(201).send(`
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+                <h1>Bem-vindo ${req.body.username}</h1>
+            </div>
+        `); 
+               
     } catch (error) {
         res.status(400).send(error.message)
     }
