@@ -103,7 +103,7 @@ app.post('/register', register, async (req, res) => {
                 <h1>Bem-vindo ${req.body.username}</h1>
             </div>
         `); 
-               
+
     } catch (error) {
         res.status(400).send(error.message)
     }
@@ -130,6 +130,7 @@ app.post('/login', middlewareJWT, async (req, res) => {
         password: password
     };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
+    res.set('Authorization', `Bearer${acessToken}`)
     res.status(200).json({
         sucess: true,
         token2: acessToken
