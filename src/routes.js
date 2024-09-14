@@ -110,7 +110,10 @@ app.post('/register', register, async (req, res) => {
 });
 
 app.post('/login', middlewareJWT, async (req, res) => {
-    const {username, password} = req.body
+    const data = {
+        username: req.body.username,
+        password: req.body.password
+    }
 
     const findUser = await UserModel.findOne({username: username})
     if(!findUser){
@@ -118,7 +121,7 @@ app.post('/login', middlewareJWT, async (req, res) => {
         .send("Error1")
     }
 
-    const findPassword = await bcrypt.compare(password, findUser.password)
+    const findPassword = await bcrypt.compare(data.password, findUser.password)
     if(!findPassword){
         return res.status(404)
         .send("Error2")
@@ -127,7 +130,7 @@ app.post('/login', middlewareJWT, async (req, res) => {
     //Authentucation - JWT
     const userPL = {
         username: username,
-        password: password
+        password: data.password
     };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
     res.set('Authorization', `Bearer${acessToken}`)
