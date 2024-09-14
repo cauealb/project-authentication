@@ -3,10 +3,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import bodyParser from 'body-parser';
 dotenv.config();
 const app = express();
 
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 app.set("view engine", "ejs")
 app.set("views", "src/views")
