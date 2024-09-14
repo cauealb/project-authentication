@@ -9,6 +9,7 @@ const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
 app.set("view engine", "ejs")
 app.set("views", "src/views")
@@ -84,16 +85,19 @@ app.get('/admin', middlewareJWT, async (req, res) => {
 
 app.post('/register', register, async (req, res) => {
     try {
-        const {username, password} = req.body
+        const data = {
+            username: req.body.username,
+            password: req.body.password
+        }
 
-        const hashPassword = await bcrypt.hash(password, 10)
+        const hashPassword = await bcrypt.hash(data.password, 10)
 
         const newUser = {
-            username: username,
+            username: data.username,
             password: hashPassword
         }
         const user = await UserModel.create(newUser)
-        res.status(201).json(user)
+        res.status(201).send("<h1>Bem vindo</h1>")
     } catch (error) {
         res.status(400).send(error.message)
     }
@@ -173,7 +177,6 @@ app.get('/update', (req, res) => {
 app.get('/delete', (req, res) => {
     res.render("pagesDelete")
 });
-
 
 const port = process.env.PORT
 
