@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Home Login</title>
     <style>
         body {
             display: flex;
@@ -13,19 +13,18 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0; 
-            position: relative; /* Permite o uso de posições absolutas internas */
         }
 
         .header {
             position: absolute;
-            top: 50px; /* Distância do topo */
-            width: 100%;
+            top: 70px; /* Ajuste conforme necessário */
+            width: 500%;
             text-align: center;
         }
 
         .header h1 {
             margin: 0;
-            font-size: 2.6rem; /* Tamanho do texto do título */
+            font-size: 3rem;
             color: #000;
         }
 
@@ -35,14 +34,19 @@
             justify-content: center;
             align-items: center;
             gap: 70px; /* Espaçamento entre os botões */
-            position: absolute;
-            top: 50%; /* Centraliza verticalmente */
-            left: 50%; /* Centraliza horizontalmente */
-            transform: translate(-50%, -50%); /* Ajusta o posicionamento */
         }
 
         .button-container a {
             text-decoration: none;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; 
+            gap: 100px; 
+            position: absolute;
+            top: 80px; 
+            width: 100%;
         }
 
         button {
@@ -62,19 +66,20 @@
         button:hover {
             background-color: #554fc7; 
         }
+        
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Bem-vindo Usuário</h1>
+        <h1>Bem-vindo TATATA</h1>
     </div>
 
     <div class="button-container">
-        <a href="/login">
-            <button>Login</button>
+        <a href="/delete">
+            <button>Deletar seu Usuário</button>
         </a>
-        <a href="/register">
-            <button>Registrar</button>
+        <a href="/update">
+            <button>Atualizar Usuário</button>
         </a>
     </div>
 </body>

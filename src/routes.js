@@ -145,7 +145,7 @@ app.post('/login', login, async (req, res) => {
     const acessToken = jwt.sign(userPL, process.env.SECRET)
     res.set('Authorization', `Bearer${acessToken}`)
 
-    res.status(200).render(`pagesDelete`) 
+    res.status(200).render(`pagesLoginHome`) 
 });
 
 app.put('/users/:id', middlewareJWT, async(req, res) => {
@@ -198,6 +198,10 @@ app.get('/delete', (req, res) => {
 
 app.get('/home', (req, res) => {
     res.render('pagesHome')
+})
+
+app.get('/loginHome', (req, res) => {
+    res.render('pagesLoginHome')
 })
 
 const port = process.env.PORT
