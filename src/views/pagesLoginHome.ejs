@@ -13,13 +13,16 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0; 
+            position: relative; /* Adiciona o contexto para o posicionamento absoluto do cabeçalho */
         }
 
         .header {
             position: absolute;
             top: 50px; /* Distância do topo */
-            width: 100%;
-            text-align: center;
+            right: 0; /* Alinha à direita */
+            text-align: right; /* Alinha o texto à direita */
+            width: auto; /* Ajusta a largura automaticamente */
+            margin-right: 20px; /* Espaço da borda direita */
         }
 
         .header h1 {
@@ -34,6 +37,7 @@
             justify-content: center;
             align-items: center;
             gap: 70px; /* Espaçamento entre os botões */
+            margin-top: 100px; /* Espaço superior para os botões */
         }
 
         .button-container a {
