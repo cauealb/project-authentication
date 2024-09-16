@@ -145,14 +145,7 @@ app.post('/login', login, async (req, res) => {
     const acessToken = jwt.sign(userPL, process.env.SECRET)
     res.set('Authorization', `Bearer${acessToken}`)
 
-    res.status(200).send(`
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
-                <h1>Logado com sucesso!</h1>
-                <p style="word-wrap: break-word; max-width: 80%; font-size: 1.2rem; text-align: center;">
-                    Seu token: ${acessToken}
-                </p>
-            </div>
-        `) 
+    res.status(200).render(`pagesDelete`) 
 });
 
 app.put('/users/:id', middlewareJWT, async(req, res) => {
