@@ -203,6 +203,10 @@ app.get('/delete', (req, res) => {
     res.render("pagesDelete")
 });
 
+app.get('/home', (req, res) => {
+    res.render('pagesHome')
+})
+
 const port = process.env.PORT
 
 app.listen(port, () => {
