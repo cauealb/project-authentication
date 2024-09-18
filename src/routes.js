@@ -4,20 +4,26 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import bodyParser from 'body-parser';
+import session from 'express-session'
 dotenv.config();
 const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(bodyParser.json())
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
 
 app.set("view engine", "ejs")
 app.set("views", "src/views")
 
 //MiddlewaresJWT
 const middlewareJWT  = async (req, res, next) => {
-    const authToke = await req.headers['authorization']
-    const token = authToke && authToke.split(" ")[1]
+    const token = req.session.jwt
+    console.log(req.session.jwt)
     if(!token){
         return res.status(404).json({
             sucess: false,
@@ -143,8 +149,7 @@ app.post('/login', login, async (req, res) => {
         password: req.body.password
     };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
-    res.set('Authorization', `Bearer${acessToken}`)
-
+    req.session.jwt = acessToken
     res.status(200).render(`pagesLoginHome`) 
 });
 
