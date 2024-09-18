@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; 
+            position: relative; /* Permite o uso de posições absolutas internas */
+        }
+
+        .header {
+            position: absolute;
+            top: 50px; /* Distância do topo */
+            width: 100%;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.6rem; /* Tamanho do texto do título */
+            color: #000;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row; /* Organiza os botões em uma linha */
+            justify-content: center;
+            align-items: center;
+            gap: 70px; /* Espaçamento entre os botões */
+            position: absolute;
+            top: 50%; /* Centraliza verticalmente */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translate(-50%, -50%); /* Ajusta o posicionamento */
+        }
+
+        .button-container a {
+            text-decoration: none;
+        }
+
+        button {
+            font-weight: bold;
+            color: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            width: 150px; 
+            height: 50px; 
+            border: none;
+            background-color: #4F46E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #554fc7; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Bem-vindo Usuário</h1>
+    </div>
+
+    <div class="button-container">
+        <a href="/login">
+            <button>Login</button>
+        </a>
+        <a href="/register">
+            <button>Registrar</button>
+        </a>
+    </div>
+</body>
+</html>

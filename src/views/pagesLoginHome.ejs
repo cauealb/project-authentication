@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Login</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; 
+            position: relative; 
+        }
+
+        .header {
+            position: absolute;
+            top: 50px; 
+            right: 0; 
+            text-align: right; 
+            width: auto; 
+            margin-right: 20px; 
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.6rem; 
+            color: #000;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row; 
+            justify-content: center;
+            align-items: center;
+            gap: 70px; 
+            margin-top: 100px; 
+        }
+
+        .button-container a {
+            text-decoration: none;
+        }
+
+        button {
+            font-weight: bold;
+            color: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            width: 200px; 
+            height: 50px; 
+            border: none;
+            background-color: #4F46E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #554fc7; 
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Bem-vindo TATATA</h1>
+    </div>
+
+    <div class="button-container">
+        <a href="/delete">
+            <button>Deletar seu Usuário</button>
+        </a>
+        <a href="/update">
+            <button>Atualizar Usuário</button>
+        </a>
+    </div>
+</body>
+</html>
