@@ -23,11 +23,10 @@ app.set("views", "src/views")
 //MiddlewaresJWT
 const middlewareJWT  = async (req, res, next) => {
     const token = req.session.jwt
-    console.log(req.session.jwt)
     if(!token){
         return res.status(404).json({
             sucess: false,
-            response: "Unauthorize"
+            response: "Unauthorize2"
         })        
     }
 
@@ -143,7 +142,6 @@ app.post('/register', register, async (req, res) => {
 });
 
 app.post('/login', login, async (req, res) => {
-    //Authentucation - JWT
     const userPL = {
         username: req.body.username,
         password: req.body.password
@@ -170,11 +168,39 @@ app.put('/users/:id', middlewareJWT, async(req, res) => {
     }
 })
 
-app.delete('/users/:id', middlewareJWT, async (req, res) => {
+app.get('/delete', middlewareJWT, async (req, res) => {
     try {
-        const id = req.params.id
-        const deleteUser = await UserModel.findByIdAndDelete(id)
-        res.status(200).json(deleteUser)
+        const decode = jwt.decode(req.session.jwt, process.env.SECRET)
+
+        const user = await UserModel.findOne({username: decode.username})
+
+        const deleteUser = await UserModel.findByIdAndDelete(user._id)
+
+        req.session.jwt = null;
+        res.status(200).send(`
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+        <h1>Deletado com Sucesso</h1>
+        <a href="/home" style="text-decoration: none;"> <!-- Usei um link em torno do botão -->
+            <button style="
+                margin-top: 20px; 
+                padding: 10px 20px; 
+                font-weight: bold; 
+                color: white; 
+                border-radius: 2rem; 
+                cursor: pointer; 
+                width: 200px; 
+                height: 50px; 
+                border: none; 
+                background-color: #4F46E5; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                transition: background-color 0.3s;">
+                Voltar
+            </button>
+        </a>
+</div>
+        `)
     } catch (error) {
         res.status(400).send(error.message)
     } 
@@ -195,10 +221,6 @@ app.get('/register', (req, res) => {
 
 app.get('/update', (req, res) => {
     res.render("pagesUpdate")
-});
-
-app.get('/delete', (req, res) => {
-    res.render("pagesDelete")
 });
 
 app.get('/home', (req, res) => {
