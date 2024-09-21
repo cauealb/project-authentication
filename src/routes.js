@@ -429,6 +429,10 @@ app.get('/update', (req, res) => {
     res.render("pagesUpdate")
 });
 
+app.get('/admin', (req, res) => {
+    res.render('pagesAdmin')
+})
+
 app.get('/home', (req, res) => {
     res.render('pagesHome')
 })
