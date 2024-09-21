@@ -297,7 +297,7 @@ app.post('/atualizar', middlewareJWT, async(req, res) => {
         }
 
         const update = await UserModel.findByIdAndUpdate(findId._id, newUser, {new: true})
-        res.status(400).send("<h1>Atualizado com sucesso!<h1>")
+        res.status(400).send("<h1>Atualizado com sucesso!</h1>")
     } catch (error) {
         res.status(400).send(error.message)
     }
