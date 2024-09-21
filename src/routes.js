@@ -193,6 +193,76 @@ const login = async (req, res, next) => {
     next();
 }
 
+//Middleware de Update
+const update = async (req, res, next) =>  {
+    try{
+
+    const token = jwt.decode(req.session.jwt, process.env.SECRET)
+    const {username, password} = token
+
+    if(username === req.body.username){
+        return res
+        .status(400)
+        .send(`
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+                <h1>O username que forneceu é igual ao atual!</h1>
+                <a href="/update" style="text-decoration: none; margin-top: 20px;">
+                    <button style="
+                        padding: 10px 20px; 
+                        font-weight: bold; 
+                        color: white; 
+                        border-radius: 2rem; 
+                        cursor: pointer; 
+                        width: 200px; 
+                        height: 50px; 
+                        border: none; 
+                        background-color: #4F46E5; 
+                        display: flex; 
+                        justify-content: center; 
+                        align-items: center; 
+                        transition: background-color 0.3s;">
+                        Voltar
+                    </button>
+                </a>
+            </div>
+        `)
+    }
+
+    if(password === req.body.password){
+        return res
+        .status(400)
+        .send(`
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+                <h1>A senha que você forneceu é igual ao atual!</h1>
+                <a href="/update" style="text-decoration: none; margin-top: 20px;">
+                    <button style="
+                        padding: 10px 20px; 
+                        font-weight: bold; 
+                        color: white; 
+                        border-radius: 2rem; 
+                        cursor: pointer; 
+                        width: 200px; 
+                        height: 50px; 
+                        border: none; 
+                        background-color: #4F46E5; 
+                        display: flex; 
+                        justify-content: center; 
+                        align-items: center; 
+                        transition: background-color 0.3s;">
+                        Voltar
+                    </button>
+                </a>
+            </div>
+        `)
+    }
+    next();
+
+    }catch(error){
+        res.status(400).send(error.message)
+    }
+}
+
+
 
 app.get('/admin', middlewareJWT, async (req, res) => {
     try {
@@ -275,7 +345,7 @@ app.post('/login', login, async (req, res) => {
     res.status(200).render(`pagesLoginHome`) 
 });
 
-app.post('/atualizar', middlewareJWT, async(req, res) => {
+app.post('/atualizar', middlewareJWT, update, async(req, res) => {
     const user = {
         username: req.body.username,
         password: req.body.password
