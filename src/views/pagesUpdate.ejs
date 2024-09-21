@@ -106,26 +106,15 @@
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <a href="/register">
-            <button>Registar</button>
-        </a>
-        <a href="/login">
-            <button>Logar</button>
-        </a>
-        <a href="/delete">
-            <button>Deletar</button>
-        </a>
-    </div>
 
-    <form class="form">
+    <form action="/atualizar" method="post" class="form">
         <p class="form-title">Atualizar sua conta</p>
         <div class="input-container">
-            <input type="username" placeholder="Enter username">
+            <input type="username" name="username" placeholder="Enter username">
             <span></span>
         </div>
         <div class="input-container">
-            <input type="password" placeholder="Enter password">
+            <input type="password" name="password" placeholder="Enter password">
         </div>
         <button type="submit" class="submit">
             Atualizar

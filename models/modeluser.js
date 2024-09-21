@@ -4,12 +4,13 @@ const { Schema } = mongoose
 const user = new Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        minLength: 7
     },
     password: {
         type: String,
         required: true,
-        minLength: 5
+        minLength: 7
     }
 })
 
