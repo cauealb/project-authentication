@@ -238,7 +238,7 @@ app.post('/register', register, async (req, res) => {
         const user = await UserModel.create(newUser)
         res.status(201).send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
-                <h1>Bem-vindo ${req.body.username}</h1>
+                <h1>Conta criada com sucesso!</h1>
                 <a href="/home" style="text-decoration: none; margin-top: 20px;">
                     <button style="
                         padding: 10px 20px; 
