@@ -61,12 +61,21 @@
         button:hover {
             background-color: #554fc7; 
         }
+
+        .token {
+            position: absolute;
+            bottom: 10px; 
+            text-align: center;
+            font-size: 1.0rem;
+            width: 100%; 
+            color: #333;
+        }
         
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Bem-vindo TATATA</h1>
+        <h1>Bem-vindo <%= username %></h1>
     </div>
 
     <div class="button-container">
@@ -77,5 +86,7 @@
             <button>Atualizar Usuário</button>
         </a>
     </div>
+
+    <p class="token">Seu token: <%= token %></p>
 </body>
 </html>

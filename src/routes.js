@@ -342,7 +342,13 @@ app.post('/login', login, async (req, res) => {
     };
     const acessToken = jwt.sign(userPL, process.env.SECRET)
     req.session.jwt = acessToken
-    res.status(200).render(`pagesLoginHome`) 
+
+    //Colocando o token no HTML
+    const data = {
+        username: userPL.username,
+        token: req.session.jwt
+    }
+    res.status(200).render(`pagesLoginHome`, data) 
 });
 
 app.post('/atualizar', middlewareJWT, update, async(req, res) => {
