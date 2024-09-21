@@ -275,18 +275,29 @@ app.post('/login', login, async (req, res) => {
     res.status(200).render(`pagesLoginHome`) 
 });
 
-app.put('/users/:id', middlewareJWT, async(req, res) => {
+app.post('/atualizar', middlewareJWT, async(req, res) => {
+    const user = {
+        username: req.body.username,
+        password: req.body.password
+    }
     try {
-        const id = req.params.id
-        const {username, password} = req.body
+        //Pegando user antigo
+        const decodeToken = jwt.decode(req.session.jwt, process.env.SECRET)
+        const findId = await UserModel.findOne({username: decodeToken.username})
 
-        const newHash = await bcrypt.hash(password, 10)
-        const newUpdate = {
-            username: username,
-            password: newHash
+        //Criando um novo token
+        const newToken = jwt.sign(user, process.env.SECRET)
+        req.session.jwt = newToken
+
+        //Hashiando a senha
+        const hash = await bcrypt.hash(user.password, 10)
+        const newUser = {
+            username: user.username,
+            password: hash
         }
-        const update = await UserModel.findByIdAndUpdate(id, newUpdate, {new: true})
-        res.status(400).json({update})
+
+        const update = await UserModel.findByIdAndUpdate(findId._id, newUser, {new: true})
+        res.status(400).send("<h1>Atualizado com sucesso!<h1>")
     } catch (error) {
         res.status(400).send(error.message)
     }
