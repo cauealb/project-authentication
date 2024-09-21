@@ -262,28 +262,34 @@ const update = async (req, res, next) =>  {
     }
 }
 
+app.get('/admin', middlewareJWT, (req, res) => {
+    res.render('pagesAdmin')
+})
 
-
-app.get('/admin', middlewareJWT, async (req, res) => {
+app.post('/admin', middlewareJWT, async (req, res) => {
     try {
-        const {username, password} = req.body
+        const admin = {
+            username: req.body.username,
+            password: req.body.password
+        }
+        console.log(admin)
 
-        if(username !== process.env.ADMIN_USER){
+        if(admin.username !== process.env.ADMIN_USER){
             return res.status(400).json({
                 sucess: false,
-                response: "Admin unauthorize"
+                response: "Admin unauthorize1"
             })
         }
         
-        if(password !== process.env.ADMIN_PASSWORD){
+        if(admin.password !== process.env.ADMIN_PASSWORD){
             return res.status(400).json({
                 sucess: false,
-                response: "Admin unauthorize"
+                response: "Admin unauthorize2"
             })
         }
 
         const user = await UserModel.find({})
-        res.status(200).json({user})
+        res.status(200).send('<h1>Admin Autorizado!!</h1>')
     } catch (error) {
         res.status(400).json({
             sucess: false,
@@ -428,10 +434,6 @@ app.get('/register', (req, res) => {
 app.get('/update', (req, res) => {
     res.render("pagesUpdate")
 });
-
-app.get('/admin', (req, res) => {
-    res.render('pagesAdmin')
-})
 
 app.get('/home', (req, res) => {
     res.render('pagesHome')
