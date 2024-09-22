@@ -13,37 +13,32 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0; 
-            position: relative; /* Permite o uso de posições absolutas internas */
+            position: relative; 
         }
 
         .header {
             position: absolute;
-            top: 50px; /* Distância do topo */
+            top: 50px; 
             width: 100%;
             text-align: center;
         }
 
         .header h1 {
             margin: 0;
-            font-size: 2.6rem; /* Tamanho do texto do título */
+            font-size: 2.6rem; 
             color: #000;
         }
 
         .button-container {
             display: flex;
-            flex-direction: column; /* Organiza os botões em uma coluna */
+            flex-direction: row; 
+            justify-content: center;
             align-items: center;
+            gap: 70px; 
             position: absolute;
-            top: 50%; /* Centraliza verticalmente */
-            left: 50%; /* Centraliza horizontalmente */
-            transform: translate(-50%, -50%); /* Ajusta o posicionamento */
-        }
-
-        .button-row {
-            display: flex;
-            flex-direction: row; /* Organiza os dois primeiros botões em linha */
-            gap: 70px; /* Espaçamento entre os botões */
-            margin-bottom: 20px; /* Espaço entre a linha e o terceiro botão */
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
         }
 
         .button-container a {
@@ -75,16 +70,11 @@
     </div>
 
     <div class="button-container">
-        <div class="button-row">
-            <a href="/login">
-                <button>Login</button>
-            </a>
-            <a href="/register">
-                <button>Registrar</button>
-            </a>
-        </div>
-        <a href="/admin">
-            <button>Administrador</button>
+        <a href="/login">
+            <button>Login</button>
+        </a>
+        <a href="/register">
+            <button>Registrar</button>
         </a>
     </div>
 </body>
