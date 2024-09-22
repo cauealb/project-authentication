@@ -526,7 +526,11 @@ app.post('/atualizar', middlewareJWT, update, async(req, res) => {
     }
 })
 
-app.get('/delete', middlewareJWT, async (req, res) => {
+app.get('/delete', middlewareJWT, (req, res) => {
+    res.render('pagesDelete')
+})
+
+app.post('/delete', middlewareJWT, async (req, res) => {
     try {
         const decode = jwt.decode(req.session.jwt, process.env.SECRET)
 
