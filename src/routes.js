@@ -478,6 +478,7 @@ app.post('/atualizar', middlewareJWT, update, async(req, res) => {
         username: req.body.username,
         password: req.body.password
     }
+    req.session.jwt = null;
     try {
         //Pegando user antigo
         const decodeToken = jwt.decode(req.session.jwt, process.env.SECRET)
