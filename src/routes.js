@@ -127,7 +127,7 @@ const register = async (req, res, next) => {
     const splUser = username.split(" ")
     const splPass = password.split(" ")
 
-    if(splUser.length === 2 || splPass.length === 2){
+    if(splUser.length >= 2 || splPass.length >= 2){
         return res
         .status(400)
         .send(`
