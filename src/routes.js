@@ -286,6 +286,37 @@ const update = async (req, res, next) =>  {
             </div>
         `)
     }
+
+    const splUser = req.body.username.split(" ")
+    const splPass = req.body.password.split(" ")
+
+    if(splUser.length >= 2 || splPass.length >= 2){
+        return res
+        .status(400)
+        .send(`
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+                <h1>Username ou Password precisam de 1 palavra!!</h1>
+                <a href="/update" style="text-decoration: none; margin-top: 20px;">
+                    <button style="
+                        padding: 10px 20px; 
+                        font-weight: bold; 
+                        color: white; 
+                        border-radius: 2rem; 
+                        cursor: pointer; 
+                        width: 200px; 
+                        height: 50px; 
+                        border: none; 
+                        background-color: #4F46E5; 
+                        display: flex; 
+                        justify-content: center; 
+                        align-items: center; 
+                        transition: background-color 0.3s;">
+                        Voltar
+                    </button>
+                </a>
+            </div>
+            `)
+    }
     next();
 
     }catch(error){
