@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Admin</title>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <% if(user && user.length > 0) { %> 
+                <% user.forEach(users => { %> 
+                    <% if(users.username !== 'admin') { %> 
+                        <h2 class="title">Id: <%= users._id %></h2>
+                        <h2 class="title">User: <%= users.username %></h2>
+                        <br/> 
+                    <% } %>
+                <% }) %>
+            <% } else { %>
+                <h2>Não há usuários nesse banco!</h2>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

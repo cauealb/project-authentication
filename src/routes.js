@@ -343,7 +343,7 @@ app.get('/admin', middlewareJWT, (req, res) => {
 app.post('/admin', middlewareJWT, isAdmin, async (req, res) => {
     try {
         const user = await UserModel.find({})
-        res.status(200).send('<h1>Admin Autorizado!!</h1>')
+        res.status(200).render('pagesViewAdmin', {user})
     } catch (error) {
         res.status(400).json({
             sucess: false,
