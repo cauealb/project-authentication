@@ -1,4 +1,4 @@
-import UserModel from '../models/modeluser.js'
+import UserModel from './models/modeluser.js'
 import express from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
@@ -19,6 +19,8 @@ app.use(session({
 
 app.set("view engine", "ejs")
 app.set("views", "src/views")
+
+import './Routes/register.js'
 
 //MiddlewaresJWT
 const middlewareJWT  = async (req, res, next) => {
