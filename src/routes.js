@@ -27,6 +27,31 @@ import registerRouter from './Routes/register.js'
 import loginRouter from './Routes/login.js'
 
 
+//Delete
+import deleteRouter from './Routes/delete.js'
+
+const middlewareJWT  = async (req, res, next) => {
+    const token = req.session.jwt
+    if(!token){
+        return res.status(404).json({
+            sucess: false,
+            response: "Unauthorize2"
+        })        
+    }
+
+    try {
+        const decode = jwt.verify(token, process.env.SECRET)
+        req.user = decode
+        next()
+    } catch (error) {
+        return res.status(404).json({
+            sucess: false,
+            response: error.message
+        })
+    }
+};
+
+
 //Middleware de Update
 const update = async (req, res, next) =>  {
     try{
@@ -135,7 +160,6 @@ const isAdmin = (req, res, next) => {
             username: req.body.username,
             password: req.body.password
         }
-        console.log(user)
     
         if(user.username !== process.env.ADMIN_USER){
             return res
@@ -274,7 +298,9 @@ app.post('/atualizar', middlewareJWT, update, async(req, res) => {
 
 app.get('/delete', middlewareJWT, (req, res) => {
     res.render('pagesDelete')
-})
+});
+
+app.use(deleteRouter)
 
 
 app.get('/login', (req, res) => {

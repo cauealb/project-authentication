@@ -3,8 +3,8 @@ const router = Router();
 
 //Dependências
 import jwt from 'jsonwebtoken'
-import UserModel from '../models/modeluser';
-
+import UserModel from '../models/modeluser.js';
+import {middlewareJWT} from './middlewareJWT.js';
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -53,7 +53,7 @@ const isDeleteValid = (req, res, next) => {
 router.post('/delete', middlewareJWT, isDeleteValid, async (req, res) => {
     try {
         const decode = jwt.decode(req.session.jwt, process.env.SECRET)
-
+    
         const user = await UserModel.findOne({username: decode.username})
 
         const deleteUser = await UserModel.findByIdAndDelete(user._id)
@@ -87,3 +87,5 @@ router.post('/delete', middlewareJWT, isDeleteValid, async (req, res) => {
         res.status(400).send(error.message)
     } 
 });
+
+export default router;
