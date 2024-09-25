@@ -119,22 +119,21 @@ router.post('/atualizar', middlewareJWT, update, async(req, res) => {
         username: req.body.username,
         password: req.body.password
     }
-    console.log('oi1');
+
     try {
         //Pegando user antigo
         const decodeToken = jwt.decode(req.session.jwt, process.env.SECRET)
-        console.log(decodeToken);
+
         const findId = await UserModel.findOne({username: decodeToken.username})
-        console.log('oi3');
+
 
         //Apaga Atual token para criar um novo
         req.session.jwt = null;
 
         //Criando um novo token
         const newToken = jwt.sign(user, process.env.SECRET)
-        console.log('oi4');
+
         req.session.jwt = newToken
-        console.log('oi5');
 
         //Hashiando a senha
         const hash = await bcrypt.hash(user.password, 10)
