@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 
 export const middlewareJWT  = async (req, res, next) => {
     const token = req.session.jwt
-    console.log(token)
     if(!token){
         return res.status(404).json({
             sucess: false,
