@@ -26,12 +26,14 @@ import registerRouter from './Routes/register.js'
 //Login
 import loginRouter from './Routes/login.js'
 
-
 //Delete
 import deleteRouter from './Routes/delete.js'
 
 //Update
 import updateRouter from './Routes/update.js'
+
+//Admin
+import adminRouter from './Routes/admin.js'
 
 const middlewareJWT  = async (req, res, next) => {
     const token = req.session.jwt
@@ -54,101 +56,17 @@ const middlewareJWT  = async (req, res, next) => {
     }
 };
 
-//Middleware de Admin
-const isAdmin = (req, res, next) => {
-
-    try {
-        const user = {
-            username: req.body.username,
-            password: req.body.password
-        }
-    
-        if(user.username !== process.env.ADMIN_USER){
-            return res
-            .status(400)
-            .send(`
-                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
-                <h1>Admin Inautorizado!</h1>
-                <a href="/admin" style="text-decoration: none; margin-top: 20px;">
-                    <button style="
-                        padding: 10px 20px; 
-                        font-weight: bold; 
-                        color: white; 
-                        border-radius: 2rem; 
-                        cursor: pointer; 
-                        width: 200px; 
-                        height: 50px; 
-                        border: none; 
-                        background-color: #4F46E5; 
-                        display: flex; 
-                        justify-content: center; 
-                        align-items: center; 
-                        transition: background-color 0.3s;">
-                        Voltar
-                    </button>
-                </a>
-            </div>
-        `)
-    }
-        
-    
-        if(user.password !== process.env.ADMIN_PASSWORD){
-            return res
-            .status(400)
-            .send(`
-                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
-                <h1>Admin Inautorizado!</h1>
-                <a href="/admin" style="text-decoration: none; margin-top: 20px;">
-                    <button style="
-                        padding: 10px 20px; 
-                        font-weight: bold; 
-                        color: white; 
-                        border-radius: 2rem; 
-                        cursor: pointer; 
-                        width: 200px; 
-                        height: 50px; 
-                        border: none; 
-                        background-color: #4F46E5; 
-                        display: flex; 
-                        justify-content: center; 
-                        align-items: center; 
-                        transition: background-color 0.3s;">
-                        Voltar
-                    </button>
-                </a>
-            </div>
-        `)
-    }
-        next();
-
-    } catch (error) {
-        res.status(400).send(error.message)
-    }
-    
-}
-
 app.get('/admin', middlewareJWT, (req, res) => {
     res.render('pagesAdmin')
-})
+});
 
-app.post('/admin', middlewareJWT, isAdmin, async (req, res) => {
-    try {
-        const user = await UserModel.find({})
-        res.status(200).render('pagesViewAdmin', {user})
-    } catch (error) {
-        res.status(400).json({
-            sucess: false,
-            response: error.message
-    })
-}
-})
+app.use(adminRouter)
 
 app.get('/delete', middlewareJWT, (req, res) => {
     res.render('pagesDelete')
 });
 
 app.use(deleteRouter)
-
 
 app.get('/login', (req, res) => {
     res.render("pagesLogin")
