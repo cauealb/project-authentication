@@ -32,10 +32,6 @@
             gap: 20px;
         }
 
-        a {
-            text-decoration: none;
-        }
-
         .button {
             font-size: 1.1rem;
             color: white;
@@ -48,7 +44,7 @@
         }
 
         .button.yes {
-            background-color: #e53e3e;
+            background-color: #e53e3e; 
         }
 
         .button.yes:hover {
@@ -73,10 +69,7 @@
         <a href="/home">
             <button class="button yes">Sim</button>
         </a>
-        <a href="/homelogin">
-            <button class="button no">Não</button>
-        </a>
+        <button class="button no" onclick="history.back()">Não</button>
     </div>
-
 </body>
 </html>
