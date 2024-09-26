@@ -94,6 +94,10 @@ app.get('/loginHome', (req, res) => {
     res.render('pagesLoginHome')
 })
 
+app.get('/logout', (req, res) => {
+    res.render('pagesLogout')
+})
+
 const port = process.env.PORT
 
 app.listen(port, () => {

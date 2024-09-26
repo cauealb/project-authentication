@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .button {
+            font-size: 1.1rem;
+            color: white;
+            background-color: #4F46E5;
+            padding: 10px 20px;
+            border-radius: 1.5rem;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #554fc7;
+        }
+
+        .cancel-button {
+            background-color: #e53e3e;
+        }
+
+        .cancel-button:hover {
+            background-color: #c53030;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Você quer mesmo sair?</h1>
+    <p>Se você sair, precisará fazer login novamente para acessar sua conta.</p>
+
+    <div class="button-row">
+        <a href="/confirm-logout">
+            <button class="button">Sim</button>
+        </a>
+        <a href="/dashboard">
+            <button class="button cancel-button">Não</button>
+        </a>
+    </div>
+
+</body>
+</html>
