@@ -20,6 +20,9 @@ app.use(session({
 app.set("view engine", "ejs")
 app.set("views", "src/views")
 
+//MiddlewareJWT
+import { middlewareJWT } from './Routes/middlewareJWT.js';
+
 //Register
 import registerRouter from './Routes/register.js'
 
@@ -38,26 +41,6 @@ import adminRouter from './Routes/admin.js'
 //Logout
 import logoutRouter from './Routes/logout.js'
 
-const middlewareJWT  = async (req, res, next) => {
-    const token = req.session.jwt
-    if(!token){
-        return res.status(404).json({
-            sucess: false,
-            response: "Unauthorize2"
-        })        
-    }
-
-    try {
-        const decode = jwt.verify(token, process.env.SECRET)
-        req.user = decode
-        next()
-    } catch (error) {
-        return res.status(404).json({
-            sucess: false,
-            response: error.message
-        })
-    }
-};
 
 app.get('/admin', middlewareJWT, (req, res) => {
     res.render('pagesAdmin')
