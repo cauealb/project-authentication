@@ -39,7 +39,6 @@
         .button {
             font-size: 1.1rem;
             color: white;
-            background-color: #4F46E5;
             padding: 10px 20px;
             border-radius: 1.5rem;
             border: none;
@@ -48,16 +47,20 @@
             text-align: center;
         }
 
-        .button:hover {
-            background-color: #554fc7;
+        .button.yes {
+            background-color: #e53e3e; /* Vermelho para o botão "Sim" */
         }
 
-        .cancel-button {
-            background-color: #e53e3e;
+        .button.yes:hover {
+            background-color: #c53030; /* Tom mais escuro de vermelho ao passar o mouse */
         }
 
-        .cancel-button:hover {
-            background-color: #c53030;
+        .button.no {
+            background-color: #4F46E5; /* Azul para o botão "Não" */
+        }
+
+        .button.no:hover {
+            background-color: #554fc7; /* Tom mais escuro de azul ao passar o mouse */
         }
     </style>
 </head>
@@ -68,10 +71,10 @@
 
     <div class="button-row">
         <a href="/confirm-logout">
-            <button class="button">Sim</button>
+            <button class="button yes">Sim</button>
         </a>
         <a href="/dashboard">
-            <button class="button cancel-button">Não</button>
+            <button class="button no">Não</button>
         </a>
     </div>
 
