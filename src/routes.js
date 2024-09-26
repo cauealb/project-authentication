@@ -35,6 +35,9 @@ import updateRouter from './Routes/update.js'
 //Admin
 import adminRouter from './Routes/admin.js'
 
+//Logout
+import logoutRouter from './Routes/logout.js'
+
 const middlewareJWT  = async (req, res, next) => {
     const token = req.session.jwt
     if(!token){
@@ -97,6 +100,8 @@ app.get('/loginHome', (req, res) => {
 app.get('/logout', (req, res) => {
     res.render('pagesLogout')
 })
+
+app.use(logoutRouter)
 
 const port = process.env.PORT
 
