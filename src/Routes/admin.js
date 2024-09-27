@@ -18,7 +18,7 @@ const isAdmin = (req, res, next) => {
     
         if(user.username !== process.env.ADMIN_USER){
             return res
-            .status(400)
+            .status(401)
             .send(`
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>Admin Inautorizado!</h1>
@@ -47,7 +47,7 @@ const isAdmin = (req, res, next) => {
     
         if(user.password !== process.env.ADMIN_PASSWORD){
             return res
-            .status(400)
+            .status(401)
             .send(`
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>Admin Inautorizado!</h1>
