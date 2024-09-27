@@ -21,7 +21,7 @@ const update = async (req, res, next) =>  {
 
     if(username === req.body.username){
         return res
-        .status(400)
+        .status(401)
         .send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>O username que forneceu é igual ao atual!</h1>
@@ -49,7 +49,7 @@ const update = async (req, res, next) =>  {
 
     if(password === req.body.password){
         return res
-        .status(400)
+        .status(401)
         .send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>A senha que você forneceu é igual ao atual!</h1>
@@ -80,7 +80,7 @@ const update = async (req, res, next) =>  {
 
     if(splUser.length >= 2 || splPass.length >= 2){
         return res
-        .status(400)
+        .status(401)
         .send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>Username ou Password precisam de 1 palavra!!</h1>
@@ -143,7 +143,7 @@ router.post('/atualizar', middlewareJWT, update, async(req, res) => {
         }
 
         const update = await UserModel.findByIdAndUpdate(findId._id, newUser, {new: true})
-        res.status(400).send(`
+        res.status(200).send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>Conta atualizada com sucesso!</h1>
                 </br>
