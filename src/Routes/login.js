@@ -71,19 +71,25 @@ const login = async (req, res, next) => {
 
 
 router.post('/login', login, async (req, res) => {
-    const userPL = {
-        username: req.body.username,
-        password: req.body.password
-    };
-    const acessToken = jwt.sign(userPL, process.env.SECRET)
-    req.session.jwt = acessToken
 
-    //Colocando o token no HTML
-    const data = {
-        username: userPL.username,
-        token: req.session.jwt
+    try {
+        const userPL = {
+            username: req.body.username,
+            password: req.body.password
+        };
+        const acessToken = jwt.sign(userPL, process.env.SECRET)
+        req.session.jwt = acessToken
+    
+        //Colocando o token no HTML
+        const data = {
+            username: userPL.username,
+            token: req.session.jwt
+        }
+        res.status(200).render(`pagesLoginHome`, data) 
+    } catch (error) {
+        res.status(400).send(error.message)
     }
-    res.status(200).render(`pagesLoginHome`, data) 
+    
 });
 
 export default router;
