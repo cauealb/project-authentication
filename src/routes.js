@@ -1,8 +1,5 @@
-import UserModel from './models/modeluser.js'
 import express from 'express';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
 import bodyParser from 'body-parser';
 import session from 'express-session'
 dotenv.config();
