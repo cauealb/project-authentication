@@ -45,7 +45,7 @@ const isDeleteValid = (req, res, next) => {
         }
         next();
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(404).send(error.message)
     }
 }
 
@@ -84,7 +84,7 @@ router.post('/delete', middlewareJWT, isDeleteValid, async (req, res) => {
 </div>
         `)
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(404).send(error.message)
     } 
 });
 

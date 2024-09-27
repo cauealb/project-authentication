@@ -75,7 +75,7 @@ const isAdmin = (req, res, next) => {
         next();
 
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(404).send(error.message)
     }
     
 }
@@ -85,7 +85,7 @@ router.post('/admin', middlewareJWT, isAdmin, async (req, res) => {
         const user = await UserModel.find({})
         res.status(200).render('pagesViewAdmin', {user})
     } catch (error) {
-        res.status(400).json({
+        res.status(404).json({
             sucess: false,
             response: error.message
     })
