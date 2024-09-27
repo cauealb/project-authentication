@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 export const middlewareJWT  = async (req, res, next) => {
     const token = req.session.jwt
     if(!token){
-        return res.status(404).json({
+        return res.status(403).json({
             sucess: false,
             response: "Unauthorize2"
         })       

@@ -75,7 +75,7 @@ const isAdmin = (req, res, next) => {
         next();
 
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(400).send(error.message)
     }
     
 }
