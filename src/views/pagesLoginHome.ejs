@@ -29,6 +29,29 @@
             color: #000;
         }
 
+        .header a {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .small-button {
+            width: 120px; 
+            height: 40px; 
+            font-size: 0.9rem;
+            background-color: #4F46E5;
+            color: white;
+            border-radius: 1.5rem;
+            border: none;
+            cursor: pointer;
+            text-align: center;   
+            line-height: 40px;    
+            text-decoration: none; 
+        }
+
+        .small-button:hover {
+            background-color: #554fc7; 
+        }
+
         .button-container {
             display: flex;
             flex-direction: column;
@@ -78,6 +101,7 @@
 <body>
     <div class="header">
         <h1>Olá <%= username %></h1>
+        <a href="/logout" class="small-button">Sair</a> 
     </div>
 
     <div class="button-container">
