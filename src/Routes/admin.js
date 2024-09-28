@@ -20,7 +20,7 @@ const tokenAdmin = (req, res, next) => {
         .send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>Rota não autorizada para o seu tipo de usuário!</h1>
-                <a href="/admin" style="text-decoration: none; margin-top: 20px;">
+                <a onclick="history.go(-2)" style="text-decoration: none; margin-top: 20px;">
                     <button style="
                         padding: 10px 20px; 
                         font-weight: bold; 
