@@ -1,10 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-//MiddlewareJWT
-import {middlewareJWT} from './middlewareJWT.js'
-
-router.get('/logoutaccount', middlewareJWT, (req, res) => {
+router.get('/logoutaccount', (req, res) => {
     try {
         req.session.destroy();
 

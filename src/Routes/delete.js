@@ -45,7 +45,7 @@ const isDeleteValid = (req, res, next) => {
         }
         next();
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(404).send(error.message)
     }
 }
 
@@ -58,7 +58,7 @@ router.post('/delete', middlewareJWT, isDeleteValid, async (req, res) => {
 
         const deleteUser = await UserModel.findByIdAndDelete(user._id)
 
-        req.session.jwt = null;
+        req.session.destroy();
         res.status(200).send(`
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
         <h1>Deletado com Sucesso</h1>

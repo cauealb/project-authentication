@@ -121,7 +121,7 @@ const register = async (req, res, next) => {
 
     next();
     } catch (error) {
-        res.status(410).send(error.message)
+        res.status(400).send(error.message)
     }
 }
 

@@ -128,7 +128,7 @@ router.post('/atualizar', middlewareJWT, update, async(req, res) => {
 
 
         //Apaga Atual token para criar um novo
-        req.session.jwt = null;
+        req.session.destroy();
 
         //Criando um novo token
         const newToken = jwt.sign(user, process.env.SECRET)
@@ -143,11 +143,11 @@ router.post('/atualizar', middlewareJWT, update, async(req, res) => {
         }
 
         const update = await UserModel.findByIdAndUpdate(findId._id, newUser, {new: true})
-        res.status(400).send(`
+        res.status(200).send(`
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
                 <h1>Conta atualizada com sucesso!</h1>
                 </br>
-                <h1>Entre na sua conta com as informações atualizadas!</h1>
+                <h3>Entre na sua conta com as informações atualizadas!</h3>
                 <a href="/login" style="text-decoration: none; margin-top: 20px;">
                     <button style="
                         padding: 10px 20px; 
