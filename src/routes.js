@@ -83,7 +83,7 @@ app.get('/logout', (req, res) => {
 
 app.use(logoutRouter)
 
-const port = process.env.PORT
+const port = process.env.PORT || 9090;
 
 app.listen(port, () => {
     console.log('Porta acessada com sucesso!')
