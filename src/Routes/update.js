@@ -156,7 +156,7 @@ router.post('/atualizar', middlewareJWT, update, async(req, res) => {
 
 
         //Apaga Atual token para criar um novo
-        req.session.destroy();
+        req.session.null();
 
         //Criando um novo token
         const newToken = jwt.sign(user, process.env.SECRET)
