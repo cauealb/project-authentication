@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken'
 //Middleware Login
 const login = async (req, res, next) => {
     try {
-        const {username, password} = req.body
+    const {username, password} = req.body
     const findUser = await UserModel.findOne({username})
     if(!findUser){
         return res

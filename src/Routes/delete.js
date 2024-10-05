@@ -56,7 +56,7 @@ router.post('/delete', middlewareJWT, isDeleteValid, async (req, res) => {
     
         const user = await UserModel.findOne({username: decode.username})
 
-        const deleteUser = await UserModel.findByIdAndDelete(user._id)
+        const deleteUser = await UserModel.findByIdAndDelete(user._id)  
 
         req.session.destroy();
         res.status(200).send(`
