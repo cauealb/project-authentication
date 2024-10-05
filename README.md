@@ -45,8 +45,6 @@ The project was created with the purpose of:
     ```
 
 2. Log in to your browser e and open on port 9090
-    - [Acesse o Projeto](www.localhost:9090)
-
 
 ## Observations
 
